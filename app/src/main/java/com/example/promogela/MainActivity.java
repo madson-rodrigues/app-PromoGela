@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         prepareViewPager(viewPager, arrayList);
 
         tabLayout.setupWithViewPager(viewPager);
-
+        //setting the tab icons
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_feed);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_mapa);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_perfil);
-
+        //setting the tab icon colors, in order to start the app with the right colors
         tabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(2).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(2).getIcon().setColorFilter(getResources().getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -73,22 +74,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
         MainAdapter adapter = new MainAdapter(getSupportFragmentManager());
-        // inicializar main fragment
+
         MainFragment fragment = new MainFragment();
 
         for(int i=0; i<arrayList.size(); i++){
-            //iniciar bundle
+            //init bundle
             Bundle bundle = new Bundle();
-            //colocar string
+
             bundle.putString("title", arrayList.get(i));
-            //setar argumentos
+
             fragment.setArguments(bundle);
-            //adicionar fragmento
+
             adapter.addFragment(fragment, arrayList.get(i));
-            //definir novo fragmento
+
             fragment = new MainFragment();
         }
-        //setar adapter
+
         viewPager.setAdapter(adapter);
 
     }
