@@ -74,13 +74,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
         MainAdapter adapter = new MainAdapter(getSupportFragmentManager());
+
         FeedFragment feed_fragment = new FeedFragment();
+        MapsFragment maps_fragment = new MapsFragment();
+
         MainFragment fragment = new MainFragment();
+
         //setting and adding the fragments to the adapter
-        //TODO clean up this part of the code
+        //TODO "to clean up" this part of the code
         for(int i=0; i<arrayList.size(); i++){
             //init bundle
-            if(i==1){
+            if(i == 0){
+                adapter.addFragment(maps_fragment, arrayList.get(i));
+            }
+            else if(i == 1){
                 adapter.addFragment(feed_fragment, "Feed");
             }
             else {
