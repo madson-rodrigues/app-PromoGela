@@ -37,7 +37,7 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ListView listaDepromos = (ListView)view.findViewById(R.id.lista);
         List<String> itens = new ArrayList<String>();
-        itens = Arrays.asList(new String[]{"asd", "abd", "ass"});
+        itens = Arrays.asList(new String[]{"Promo 1", "Promo 2", "Promo 3"});
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itens );
         listaDepromos.setAdapter(adapter);
         return view;

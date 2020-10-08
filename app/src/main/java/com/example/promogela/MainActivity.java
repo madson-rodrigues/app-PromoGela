@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         prepareViewPager(viewPager, arrayList);
 
+        prepareTabLayout();
+
+    }
+
+    private void prepareTabLayout() {
+
         tabLayout.setupWithViewPager(viewPager);
         //setting the tab icons
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_mapa);
@@ -43,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_perfil);
         //setting the tab icon colors, in order to start the app with the right colors
         tabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN);
-        tabLayout.getTabAt(2).getIcon().setColorFilter(getResources().getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(R.color.my_darker_gray), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(2).getIcon().setColorFilter(getResources().getColor(R.color.my_darker_gray), PorterDuff.Mode.SRC_IN);
         //changing dynamically the icon colors, when selected
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     if(tabLayout.getTabAt(i).isSelected())
                         tabLayout.getTabAt(i).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
                     else{
-                        tabLayout.getTabAt(i).getIcon().setColorFilter(getResources().getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN);
+                        tabLayout.getTabAt(i).getIcon().setColorFilter(getResources().getColor(R.color.my_darker_gray), PorterDuff.Mode.SRC_IN);
                     }
                 }
             }
@@ -68,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-
     }
 
 
