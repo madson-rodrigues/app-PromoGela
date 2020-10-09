@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(R.color.my_darker_gray), PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(2).getIcon().setColorFilter(getResources().getColor(R.color.my_darker_gray), PorterDuff.Mode.SRC_IN);
-        //changing dynamically the icon colors, when selected
+        //changing dynamically the icon colors, when it's selected
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -119,9 +119,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStores(ArrayList<Store> stores) {
-        LatLng latLng = new LatLng(-5.850012, -35.254002);
-        Store store1 = new Store("Supermercado Bom Jesus", latLng);
-        stores.add(store1);
+        Store store = new Store("Supermercado Bom Jesus", new LatLng(-5.850012, -35.254002));
+        stores.add(store);
+        store = new Store("Mercadinho São paulo", new LatLng(-5.847530, -35.249089));
+        stores.add(store);
+        store = new Store("Carrefour", new LatLng(-5.844684, -35.210559));
+        stores.add(store);
+        store = new Store("Produtor Lucena", new LatLng(-5.851161, -35.210746));
+        stores.add(store);
+        store = new Store("Rei da Gela", new LatLng(-5.856431, -35.236892));
+        stores.add(store);
+        store = new Store("Distribuidora de Bebidas do Dilson", new LatLng(-5.769212, -35.203158));
+        stores.add(store);
     }
 
     private class MainAdapter extends FragmentPagerAdapter {

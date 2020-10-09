@@ -2,8 +2,15 @@ package com.example.promogela;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -31,12 +39,33 @@ public class MapsFragment extends Fragment {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            /*Bitmap markerIcon = getBitmapFromVectorDrawable(getContext(),R.drawable.ic_round_store_24);;*/
             LatLng natal = new LatLng(-5.812757, -35.255127);
-            googleMap.addMarker(new MarkerOptions().position(natal).title("Marker in Natal"));
-            googleMap.addMarker(new MarkerOptions().position(stores.get(0).getLatLng()).title(stores.get(0).getName()));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(natal,13));
+            //to setup stores on the map
+            for(Store store: stores) {
+                googleMap.addMarker(new MarkerOptions().position(store.getLatLng())
+                        .title(store.getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(natal, 13));
         }
     };
+
+    // to convert vector into a bitmap in order to use as marker icon on the map
+   /* public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable =  AppCompatResources.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }*/
 
     @Nullable
     @Override
