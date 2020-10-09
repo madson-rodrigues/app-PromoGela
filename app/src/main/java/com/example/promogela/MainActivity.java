@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<arrayList.size(); i++){
             //init bundle
             if(i == 0){
+                ArrayList<Store> stores = new ArrayList();
+                updateStores(stores);
+                maps_fragment.setStores(stores);
                 adapter.addFragment(maps_fragment, arrayList.get(i));
             }
             else if(i == 1){
@@ -112,6 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
 
+    }
+
+    private void updateStores(ArrayList<Store> stores) {
+        LatLng latLng = new LatLng(-5.850012, -35.254002);
+        Store store1 = new Store("Supermercado Bom Jesus", latLng);
+        stores.add(store1);
     }
 
     private class MainAdapter extends FragmentPagerAdapter {
