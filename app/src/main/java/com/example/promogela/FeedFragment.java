@@ -35,10 +35,11 @@ public class FeedFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        images = new int[]{R.drawable.heineken_long, R.drawable.heineken_long};
-        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken"));
-        descriptions = new ArrayList<>(Arrays.asList("Lata 330ml", "Garrafa 660ml"));
-        prices = new ArrayList<>(Arrays.asList("R$ 1,89", "R$ 6,99"));
+        //TODO to look for a better way to save it, maybe in a class
+        images = new int[]{R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck};
+        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois"));
+        descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml"));
+        prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89"));
     }
 
     @Nullable
@@ -88,7 +89,6 @@ public class FeedFragment extends Fragment {
             description.setText(rDescriptions.get(position));
             price.setText(rPrices.get(position));
 
-            //TODO fill the other arguments, descriptions, prices...
 
 
             return row;
