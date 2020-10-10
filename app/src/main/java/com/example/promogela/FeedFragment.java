@@ -39,7 +39,7 @@ public class FeedFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //TODO to look for a better way to save it, maybe in a class
         images = new int[]{R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck, R.drawable.devassa_can, R.drawable.corona_long_neck, R.drawable.heineken_bottle};
-        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heinken"));
+        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heineken"));
         descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
         prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
         stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
@@ -52,6 +52,7 @@ public class FeedFragment extends Fragment {
         ListView PromosList = (ListView)view.findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
         //TODO set the click listener
+
         PromosList.setAdapter(adapter);
         return view;
     }
