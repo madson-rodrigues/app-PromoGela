@@ -40,7 +40,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             /*Bitmap markerIcon = getBitmapFromVectorDrawable(getContext(),R.drawable.ic_round_store_24);;*/
-            LatLng natal = new LatLng(-5.812757, -35.255127);
+            LatLng natal = new LatLng(-5.841011, -35.210729);
             //to setup stores on the map
             for(Store store: stores) {
                 googleMap.addMarker(new MarkerOptions().position(store.getLatLng())
