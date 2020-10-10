@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         MainFragment fragment = new MainFragment();
 
         //setting and adding the fragments to the adapter
-        //TODO "to clean up" this part of the code
+        //TODO to refactor this part of the code
         for(int i=0; i<arrayList.size(); i++){
             //init bundle
             if(i == 0){

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,9 +35,10 @@ public class FeedFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        images = new int[]{R.drawable.heineken_long, R.drawable.heineken_long};
         brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken"));
         descriptions = new ArrayList<>(Arrays.asList("Lata 330ml", "Garrafa 660ml"));
-        prices = new ArrayList<String>(Arrays.asList("1,89", "6,99"));
+        prices = new ArrayList<>(Arrays.asList("R$ 1,89", "R$ 6,99"));
     }
 
     @Nullable
@@ -44,9 +46,9 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ListView PromosList = (ListView)view.findViewById(R.id.list);
-        MyAdapter adapter = new MyAdapter(getContext(), brands, descriptions, prices);
-
-       PromosList.setAdapter(adapter);
+        MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices);
+        //TODO set the click listener
+        PromosList.setAdapter(adapter);
         return view;
     }
 
@@ -62,8 +64,9 @@ public class FeedFragment extends Fragment {
 
         private ArrayList<String> rPrices;
 
-        public MyAdapter(@NonNull Context context, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices) {
+        public MyAdapter(@NonNull Context context, int[] images, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices) {
             super(context,R.layout.row, R.id.brand, brands);
+            this.rImages = images;
             this.context = context;
             this.rBrands = brands;
             this.rDescriptions = descriptions;
@@ -75,9 +78,16 @@ public class FeedFragment extends Fragment {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
             View row = layoutInflater.inflate(R.layout.row, parent, false);
+            ImageView image = row.findViewById(R.id.image);
             TextView brand = row.findViewById(R.id.brand);
+            TextView description = row.findViewById(R.id.description);
+            TextView price = row.findViewById(R.id.price);
 
+            image.setImageResource(rImages[position]);
             brand.setText(rBrands.get(position));
+            description.setText(rDescriptions.get(position));
+            price.setText(rPrices.get(position));
+
             //TODO fill the other arguments, descriptions, prices...
 
 
