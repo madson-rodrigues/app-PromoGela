@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         prepareViewPager(viewPager, arrayList);
 
         prepareTabLayout();
-
+        //Dynamically swiping the tabs <<<<<<<<<<<<<<<<<<
+        //tabLayout.getTabAt(2).select();
     }
 
     private void prepareTabLayout() {
