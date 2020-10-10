@@ -29,6 +29,8 @@ public class FeedFragment extends Fragment {
 
     private ArrayList<String> prices;
 
+    private ArrayList<String> stores;
+
     public FeedFragment(){
     }
 
@@ -40,6 +42,7 @@ public class FeedFragment extends Fragment {
         brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heinken"));
         descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
         prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
+        stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
     }
 
     @Nullable
@@ -47,7 +50,7 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ListView PromosList = (ListView)view.findViewById(R.id.list);
-        MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices);
+        MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
         //TODO set the click listener
         PromosList.setAdapter(adapter);
         return view;
@@ -65,13 +68,16 @@ public class FeedFragment extends Fragment {
 
         private ArrayList<String> rPrices;
 
-        public MyAdapter(@NonNull Context context, int[] images, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices) {
+        private ArrayList<String> rStores;
+
+        public MyAdapter(@NonNull Context context, int[] images, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices, ArrayList<String> stores) {
             super(context,R.layout.row, R.id.brand, brands);
             this.rImages = images;
             this.context = context;
             this.rBrands = brands;
             this.rDescriptions = descriptions;
             this.rPrices = prices;
+            this.rStores = stores;
         }
 
         @NonNull
@@ -83,13 +89,13 @@ public class FeedFragment extends Fragment {
             TextView brand = row.findViewById(R.id.brand);
             TextView description = row.findViewById(R.id.description);
             TextView price = row.findViewById(R.id.price);
+            TextView store = row.findViewById(R.id.store);
 
             image.setImageResource(rImages[position]);
             brand.setText(rBrands.get(position));
             description.setText(rDescriptions.get(position));
             price.setText(rPrices.get(position));
-
-
+            store.setText(rStores.get(position));
 
             return row;
         }
