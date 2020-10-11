@@ -10,15 +10,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
+    ArrayList<Store> stores;
+    List<ListView> list_for_the_activity_store;
     TabLayout tabLayout;
     ViewPager viewPager;
     @Override
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
 
+        list_for_the_activity_store = new ArrayList<>();
         ArrayList<String> arrayList = new ArrayList<>();
 
         arrayList.add("Mapa");
@@ -93,12 +99,13 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<arrayList.size(); i++){
             //init bundle
             if(i == 0){
-                ArrayList<Store> stores = new ArrayList();
+                stores = new ArrayList();
                 updateStores(stores);
                 maps_fragment.setStores(stores);
                 adapter.addFragment(maps_fragment, arrayList.get(i));
             }
             else if(i == 1){
+                feed_fragment.setArguments(stores);
                 adapter.addFragment(feed_fragment, "Feed");
             }
             else {
@@ -134,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         stores.add(store);
     }
 
-    private class MainAdapter extends FragmentPagerAdapter {
+    private class MainAdapter extends FragmentPagerAdapter{
 
         ArrayList<String> arrayList = new ArrayList<>();
         List<Fragment> fragmentList = new ArrayList<>();

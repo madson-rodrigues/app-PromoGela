@@ -3,6 +3,7 @@ package com.example.promogela;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment{
 
     int images[];
 
@@ -32,6 +36,8 @@ public class FeedFragment extends Fragment {
     private ArrayList<String> prices;
 
     private ArrayList<String> stores;
+
+    private List<Store> geo_localization_stores;
 
     public FeedFragment(){
     }
@@ -45,6 +51,7 @@ public class FeedFragment extends Fragment {
         descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
         prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
         stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
+        //geo_localization_stores = (ArrayList<Store>) getArguments().getSerializable("stores");
     }
 
     @Nullable
@@ -53,14 +60,27 @@ public class FeedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ListView PromosList = (ListView)view.findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
-        //TODO set the click listener
         PromosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getContext(), activity_store.class);
+                //setting the attributes that will be used to create the store activity
                 intent.putExtra("storeName", stores.get(position));
                 intent.putExtra("description", descriptions.get(position));
+                intent.putExtra("store", stores.get(position));
 
+                //TODO send the latlong to the acvity_store
+                //send the latitude and longitude of the store to the activity_store
+                for(Store i: geo_localization_stores){
+                    if(i.getName().equals(stores.get(position))){
+                        LatLng latLng = i.getLatLng();
+                        intent.putExtra("latitude",latLng.latitude );
+                        intent.putExtra("longitude", latLng.longitude);
+                    }
+                }
+                //intent.putExtra("stores",(Serializable)geo_localization_stores);
+                //intent.putExtra("stores", geo_localization_stores);
+                Log.i("nomeDaLoja", Integer.toString(geo_localization_stores.size()));
                 startActivity(intent);
             }
         });
@@ -68,7 +88,13 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
-    class MyAdapter extends ArrayAdapter<String> {
+
+
+    public void setArguments(ArrayList<Store> rStores) {
+        this.geo_localization_stores = rStores;
+    }
+
+    class MyAdapter extends ArrayAdapter<String>{
 
         Context context;
 

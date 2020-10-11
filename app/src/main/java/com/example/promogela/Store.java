@@ -2,7 +2,9 @@ package com.example.promogela;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable {
 
     private String name;
 
