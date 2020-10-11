@@ -1,10 +1,12 @@
 package com.example.promogela;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -52,7 +54,16 @@ public class FeedFragment extends Fragment {
         ListView PromosList = (ListView)view.findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
         //TODO set the click listener
+        PromosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getContext(), activity_store.class);
+                intent.putExtra("storeName", stores.get(position));
+                intent.putExtra("description", descriptions.get(position));
 
+                startActivity(intent);
+            }
+        });
         PromosList.setAdapter(adapter);
         return view;
     }
