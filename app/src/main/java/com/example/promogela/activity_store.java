@@ -5,21 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class activity_store extends AppCompatActivity{
 
     Intent intent;
     TextView storeName;
     TextView description;
-    ListView list;
+    ListView listView;
     Store store;
     FeedFragment.MyAdapter myAdapter;
-
+    ArrayList<Integer> images;
+    ArrayList<String> brands;
+    ArrayList<String> descriptions;
+    ArrayList<String> prices;
+    ArrayList<String> stores;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +33,21 @@ public class activity_store extends AppCompatActivity{
         intent = getIntent();
         storeName = findViewById(R.id.storeName);
         description = findViewById(R.id.description);
-        list = findViewById(R.id.promoList);
+        listView = findViewById(R.id.promoList);
         //store = (Store) intent.getSerializableExtra("stores");
         storeName.setText(intent.getStringExtra("storeName"));
         description.setText(intent.getStringExtra("description"));
-        myAdapter = (FeedFragment.MyAdapter) intent.getSerializableExtra("adapter");
+        //myAdapter = (FeedFragment.MyAdapter) intent.getSerializableExtra("adapter");
+
+        images = (ArrayList<Integer>) intent.getSerializableExtra("images");
+        brands = (ArrayList<String>) intent.getSerializableExtra("brands");
+        descriptions = (ArrayList<String>) intent.getSerializableExtra("descriptions");
+        prices = (ArrayList<String>) intent.getSerializableExtra("prices");
+        stores = (ArrayList<String>) intent.getSerializableExtra("stores");
+
+        myAdapter = new FeedFragment.MyAdapter(getApplicationContext(),images, brands, descriptions, prices, stores);
+        listView.setAdapter(myAdapter);
+
     }
 
     public void openGoogleMaps(View view) {

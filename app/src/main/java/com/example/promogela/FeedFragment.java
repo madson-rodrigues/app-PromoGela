@@ -71,11 +71,12 @@ public class FeedFragment extends Fragment{
 
                 Intent intent = new Intent(getContext(), activity_store.class);
                 //contents thar wil be used in the list of promotions in the activity_store
-                int images_to_activity_store_row[];
-                ArrayList<String> brands_to_activity_store_row;
-                ArrayList<String> descriptions_to_activity_store_row;
-                ArrayList<String> prices_to_activity_store_row;
-                ArrayList<String> stores_to_activity_store_row;
+                ArrayList<Integer> images_to_activity_store_row = new ArrayList<>();
+                ArrayList<String> brands_to_activity_store_row = new ArrayList<>();
+                ArrayList<String> descriptions_to_activity_store_row = new ArrayList<>();
+                ArrayList<String> prices_to_activity_store_row = new ArrayList<>();
+                ArrayList<String> stores_to_activity_store_row = new ArrayList<>();
+
 
                 //setting the attributes that will be used to create the store activity
                 intent.putExtra("storeName", stores.get(position));
@@ -85,12 +86,20 @@ public class FeedFragment extends Fragment{
 
                 //intent.putExtra("adapter", adapterStorePromos);
                 //send the row contents
-                //TODO
-                /*for(int i=0; i < stores.size(); i++){
+                for(int i=0; i < stores.size(); i++){
                     if(stores.get(position).equals(stores.get(i))){
-                        images_to_activity_store_row. images[i];
+                        images_to_activity_store_row.add(images.get(i));
+                        brands_to_activity_store_row.add(brands.get(i));
+                        descriptions_to_activity_store_row.add(descriptions.get(i));
+                        prices_to_activity_store_row.add(prices.get(i));
+                        stores_to_activity_store_row.add(stores.get(i));
                     }
-                }*/
+                }
+                intent.putExtra("images",images_to_activity_store_row);
+                intent.putExtra("brands",brands_to_activity_store_row);
+                intent.putExtra("descriptions",descriptions_to_activity_store_row);
+                intent.putExtra("prices",prices_to_activity_store_row);
+                intent.putExtra("stores",stores_to_activity_store_row);
                 //send the latitude and longitude of the store to the activity_store
                 for(Store i: geo_localization_stores){
                     if(i.getName().equals(stores.get(position))){
@@ -118,7 +127,7 @@ public class FeedFragment extends Fragment{
         this.geo_localization_stores = rStores;
     }
 
-    class MyAdapter extends ArrayAdapter<String> implements Serializable {
+    static class MyAdapter extends ArrayAdapter<String> implements Serializable {
 
         public Context context;
 
