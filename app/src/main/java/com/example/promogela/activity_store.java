@@ -13,29 +13,34 @@ import java.io.Serializable;
 
 public class activity_store extends AppCompatActivity{
 
+    Intent intent;
     TextView storeName;
     TextView description;
     ListView list;
     Store store;
+    FeedFragment.MyAdapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-        Intent intent = getIntent();
+        intent = getIntent();
         storeName = findViewById(R.id.storeName);
         description = findViewById(R.id.description);
         list = findViewById(R.id.promoList);
         //store = (Store) intent.getSerializableExtra("stores");
-
-        //TODO to add the link to the google maps, using the store that is already sett
         storeName.setText(intent.getStringExtra("storeName"));
         description.setText(intent.getStringExtra("description"));
+        myAdapter = (FeedFragment.MyAdapter) intent.getSerializableExtra("adapter");
     }
 
     public void openGoogleMaps(View view) {
-        Uri gmmIntentUri = Uri.parse("geo:-23.564175,-46.6617916");
+        String latitude = intent.getStringExtra("latitude");
+        String longitude = intent.getStringExtra("longitude");
+        Uri gmmIntentUri = Uri.parse("geo:"+ latitude + "," + longitude + "?z=16?q=" + latitude + "," + longitude);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
+        //TODO put a marker on the map and configure the zoom of the camera
         startActivity(mapIntent);
     }
 }

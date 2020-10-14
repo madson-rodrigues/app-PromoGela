@@ -3,6 +3,8 @@ package com.example.promogela;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,17 +29,19 @@ import java.util.List;
 
 public class FeedFragment extends Fragment{
 
-    int images[];
+    private ArrayList<Integer> images;
 
     private ArrayList<String> brands;
 
     private ArrayList<String> descriptions;
 
+    private ArrayList<String> storeDescriptions;
+
     private ArrayList<String> prices;
 
     private ArrayList<String> stores;
 
-    private List<Store> geo_localization_stores;
+    private ArrayList<Store> geo_localization_stores;
 
     public FeedFragment(){
     }
@@ -46,11 +50,12 @@ public class FeedFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO to look for a better way to save it, maybe in a class
-        images = new int[]{R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck, R.drawable.devassa_can, R.drawable.corona_long_neck, R.drawable.heineken_bottle};
+        images = new ArrayList<>(Arrays.asList(R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck, R.drawable.devassa_can, R.drawable.corona_long_neck, R.drawable.heineken_bottle));
         brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heineken"));
         descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
         prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
         stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
+        storeDescriptions = new ArrayList<>(Arrays.asList("Distribuidora", "Mercado", "Distribuidora", "Mercado", "Distibuidora", "Distribuidora"));
         //geo_localization_stores = (ArrayList<Store>) getArguments().getSerializable("stores");
     }
 
@@ -63,24 +68,43 @@ public class FeedFragment extends Fragment{
         PromosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
                 Intent intent = new Intent(getContext(), activity_store.class);
+                //contents thar wil be used in the list of promotions in the activity_store
+                int images_to_activity_store_row[];
+                ArrayList<String> brands_to_activity_store_row;
+                ArrayList<String> descriptions_to_activity_store_row;
+                ArrayList<String> prices_to_activity_store_row;
+                ArrayList<String> stores_to_activity_store_row;
+
                 //setting the attributes that will be used to create the store activity
                 intent.putExtra("storeName", stores.get(position));
-                intent.putExtra("description", descriptions.get(position));
+                intent.putExtra("description", storeDescriptions.get(position));
                 intent.putExtra("store", stores.get(position));
+                MyAdapter adapterStorePromos = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
 
-                //TODO send the latlong to the acvity_store
+                //intent.putExtra("adapter", adapterStorePromos);
+                //send the row contents
+                //TODO
+                /*for(int i=0; i < stores.size(); i++){
+                    if(stores.get(position).equals(stores.get(i))){
+                        images_to_activity_store_row. images[i];
+                    }
+                }*/
                 //send the latitude and longitude of the store to the activity_store
                 for(Store i: geo_localization_stores){
                     if(i.getName().equals(stores.get(position))){
                         LatLng latLng = i.getLatLng();
-                        intent.putExtra("latitude",latLng.latitude );
-                        intent.putExtra("longitude", latLng.longitude);
+                        intent.putExtra("latitude", String.valueOf(latLng.latitude) );
+                        intent.putExtra("longitude", String.valueOf(latLng.longitude));
+                        Log.i("teste", "entrou");
+                        break;
                     }
                 }
+
                 //intent.putExtra("stores",(Serializable)geo_localization_stores);
                 //intent.putExtra("stores", geo_localization_stores);
-                Log.i("nomeDaLoja", Integer.toString(geo_localization_stores.size()));
+                Log.i("teste", Integer.toString(geo_localization_stores.size()));
                 startActivity(intent);
             }
         });
@@ -94,11 +118,11 @@ public class FeedFragment extends Fragment{
         this.geo_localization_stores = rStores;
     }
 
-    class MyAdapter extends ArrayAdapter<String>{
+    class MyAdapter extends ArrayAdapter<String> implements Serializable {
 
-        Context context;
+        public Context context;
 
-        int rImages[];
+        private ArrayList<Integer> rImages;
 
         private ArrayList<String> rBrands;
 
@@ -108,7 +132,7 @@ public class FeedFragment extends Fragment{
 
         private ArrayList<String> rStores;
 
-        public MyAdapter(@NonNull Context context, int[] images, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices, ArrayList<String> stores) {
+        public MyAdapter(@NonNull Context context, ArrayList<Integer> images, ArrayList<String> brands, ArrayList<String> descriptions, ArrayList<String> prices, ArrayList<String> stores) {
             super(context,R.layout.row, R.id.brand, brands);
             this.rImages = images;
             this.context = context;
@@ -129,7 +153,7 @@ public class FeedFragment extends Fragment{
             TextView price = row.findViewById(R.id.price);
             TextView store = row.findViewById(R.id.store);
 
-            image.setImageResource(rImages[position]);
+            image.setImageResource(rImages.get(position));
             brand.setText(rBrands.get(position));
             description.setText(rDescriptions.get(position));
             price.setText(rPrices.get(position));
@@ -137,6 +161,7 @@ public class FeedFragment extends Fragment{
 
             return row;
         }
+
     }
 
 }
