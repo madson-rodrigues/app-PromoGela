@@ -65,12 +65,13 @@ public class FeedFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ListView PromosList = (ListView)view.findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(getContext(),images, brands, descriptions, prices, stores);
+
         PromosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Intent intent = new Intent(getContext(), activity_store.class);
-                //contents thar wil be used in the list of promotions in the activity_store
+                //contents that wil be used in the list of promotions in the activity_store
                 ArrayList<Integer> images_to_activity_store_row = new ArrayList<>();
                 ArrayList<String> brands_to_activity_store_row = new ArrayList<>();
                 ArrayList<String> descriptions_to_activity_store_row = new ArrayList<>();

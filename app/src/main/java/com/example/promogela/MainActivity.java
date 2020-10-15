@@ -92,35 +92,22 @@ public class MainActivity extends AppCompatActivity{
         FeedFragment feed_fragment = new FeedFragment();
         MapsFragment maps_fragment = new MapsFragment();
 
-        MainFragment fragment = new MainFragment();
+        StoresFragment fragment = new StoresFragment();
 
         //setting and adding the fragments to the adapter
-        //TODO to refactor this part of the code
-        for(int i=0; i<arrayList.size(); i++){
-            //init bundle
-            if(i == 0){
-                stores = new ArrayList();
-                updateStores(stores);
-                maps_fragment.setStores(stores);
-                adapter.addFragment(maps_fragment, arrayList.get(i));
-            }
-            else if(i == 1){
-                feed_fragment.setArguments(stores);
-                adapter.addFragment(feed_fragment, "Feed");
-            }
-            else {
-                Bundle bundle = new Bundle();
 
-                bundle.putString("title", arrayList.get(i));
+        //setting maps_fragment
+        stores = new ArrayList();
+        updateStores(stores);
+        maps_fragment.setStores(stores);
+        adapter.addFragment(maps_fragment, arrayList.get(0));
 
-                fragment.setArguments(bundle);
+        //setting feed_fragment
+        feed_fragment.setArguments(stores);
+        adapter.addFragment(feed_fragment, "Feed");
 
-                adapter.addFragment(fragment, arrayList.get(i));
-
-                fragment = new MainFragment();
-            }
-        }
-
+        //setting MainFragment
+        adapter.addFragment(fragment, arrayList.get(2));
 
         viewPager.setAdapter(adapter);
 
