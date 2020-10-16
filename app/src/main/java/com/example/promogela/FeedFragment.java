@@ -56,7 +56,7 @@ public class FeedFragment extends Fragment{
         prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
         stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
         storeDescriptions = new ArrayList<>(Arrays.asList("Distribuidora", "Mercado", "Distribuidora", "Mercado", "Distibuidora", "Distribuidora"));
-        //geo_localization_stores = (ArrayList<Store>) getArguments().getSerializable("stores");
+
     }
 
     @Nullable

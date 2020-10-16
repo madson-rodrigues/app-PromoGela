@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity{
         feed_fragment.setArguments(stores);
         adapter.addFragment(feed_fragment, "Feed");
 
+
         //setting MainFragment
         adapter.addFragment(fragment, arrayList.get(2));
 
