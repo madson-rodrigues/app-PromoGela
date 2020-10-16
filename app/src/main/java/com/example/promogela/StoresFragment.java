@@ -17,8 +17,12 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StoresFragment extends Fragment {
+
+    private ArrayList<Store> stores;
+
 
     public StoresFragment() {
         // Required empty public constructor
@@ -36,6 +40,11 @@ public class StoresFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.storeList);
 
         return view;
+    }
+
+    public void setArguments(ArrayList<Store> rStores){
+
+        this.stores = rStores;
     }
 
     static class MyAdapter extends ArrayAdapter<String> {

@@ -10,9 +10,15 @@ public class Store implements Serializable {
 
     private LatLng latLng;
 
-    public Store(String name, LatLng latLng) {
+    private String description;
+
+    private String address;
+
+    public Store(String name, LatLng latLng, String description, String rAddress) {
         this.name = name;
         this.latLng = latLng;
+        this.description = description;
+        this.address = rAddress;
     }
 
     public String getName() {
