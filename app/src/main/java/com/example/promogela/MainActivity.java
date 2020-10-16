@@ -10,27 +10,60 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
-    ArrayList<Store> stores;
+    private ArrayList<Integer> images;
+
+    private ArrayList<String> brands;
+
+    private ArrayList<String> descriptions;
+
+    private ArrayList<String> storeDescriptions;
+
+    private ArrayList<String> prices;
+
+    private ArrayList<String> stores;
+
+    private HashMap<String, String> storesAddress;
+
+    ArrayList<Store> storesLatlong;
+
     List<ListView> list_for_the_activity_store;
+
     TabLayout tabLayout;
+
     ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        images = new ArrayList<>(Arrays.asList(R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck, R.drawable.devassa_can, R.drawable.corona_long_neck, R.drawable.heineken_bottle));
+        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heineken"));
+        descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
+        prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
+        storeDescriptions = new ArrayList<>(Arrays.asList("Distribuidora", "Mercado", "Distribuidora", "Mercado", "Distibuidora", "Distribuidora"));
+        stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtos Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
+        storesAddress = new HashMap<>();
+        storesAddress.put("Rei da Gela", "Av. dos Xavantes, 7694 - Cidade Satelite, Natal - RN, 59068-380");
+        storesAddress.put("Mercadinho São Paulo",  "R. Paracati, 96 - Planalto, Natal - RN, 59073-100");
+        storesAddress.put("Produtos Lucena",  "Rua Agnaldo Gurgel Junior, 10 - Candelária, Natal - RN, 59066-030");
+        storesAddress.put("Supermercado Bom Jesus",  "R. Paracati - Planalto, Natal - RN, 59073-100");
+        storesAddress.put("Distibuidora de Bebidas do Dilson",  "Travessa Irmã Vitória, 49 - Rocas, Natal - RN, 59010-680");
+
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
@@ -97,17 +130,17 @@ public class MainActivity extends AppCompatActivity{
         //setting and adding the fragments to the adapter
 
         //setting maps_fragment
-        stores = new ArrayList();
-        updateStores(stores);
-        maps_fragment.setStores(stores);
+        storesLatlong = new ArrayList();
+        updateStores(storesLatlong);
+        maps_fragment.setStores(storesLatlong);
         adapter.addFragment(maps_fragment, arrayList.get(0));
 
         //setting feed_fragment
-        feed_fragment.setArguments(stores);
+        feed_fragment.setArguments(storesLatlong, images, brands, descriptions, prices, stores, storeDescriptions);
         adapter.addFragment(feed_fragment, "Feed");
 
 
-        //setting MainFragment
+        //setting StoreFragment
         adapter.addFragment(fragment, arrayList.get(2));
 
         viewPager.setAdapter(adapter);

@@ -49,14 +49,17 @@ public class FeedFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO to look for a better way to save it, maybe in a class
-        images = new ArrayList<>(Arrays.asList(R.drawable.bohemia_can, R.drawable.heineken_long,R.drawable.stella_long_neck, R.drawable.devassa_can, R.drawable.corona_long_neck, R.drawable.heineken_bottle));
-        brands = new ArrayList<>(Arrays.asList("Bohemia", "Heineken", "Stella Artois", "Devassa", "Corona", "Heineken"));
-        descriptions = new ArrayList<>(Arrays.asList("Lata 350ml", "Long Neck 330ml", "Long Neck 330ml", "Lata 350ml", "Long Neck 330ml", "Garrafa 600ml"));
-        prices = new ArrayList<>(Arrays.asList("R$ 1,79", "R$ 4,10", "R$ 3,89", "R$ 2,39", "R$ 4,29", "R$ 6,29"));
-        stores = new ArrayList<>(Arrays.asList("Rei da Gela", "Mercadinho São Paulo", "Produtor Lucena", "Supermercado Bom Jesus", "Distibuidora de Bebidas do Dilson", "Rei da Gela"));
-        storeDescriptions = new ArrayList<>(Arrays.asList("Distribuidora", "Mercado", "Distribuidora", "Mercado", "Distibuidora", "Distribuidora"));
+    }
 
+    public void setArguments(ArrayList<Store> rStoresLatlng, ArrayList<Integer> rImages, ArrayList<String> rBrands, ArrayList<String> rDescriptions, ArrayList<String> rPrices,
+                             ArrayList<String> rStores, ArrayList<String> rStoreDescriptions) {
+        this.geo_localization_stores = rStoresLatlng;
+        this.images = rImages;
+        this.brands = rBrands;
+        this.descriptions = rDescriptions;
+        this.prices = rPrices;
+        this.stores = rStores;
+        this.storeDescriptions = rStoreDescriptions;
     }
 
     @Nullable
@@ -124,9 +127,7 @@ public class FeedFragment extends Fragment{
 
 
 
-    public void setArguments(ArrayList<Store> rStores) {
-        this.geo_localization_stores = rStores;
-    }
+
 
     static class MyAdapter extends ArrayAdapter<String> implements Serializable {
 
